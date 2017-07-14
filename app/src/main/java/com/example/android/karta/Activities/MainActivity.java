@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +15,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.karta.API.API;
+import com.example.android.karta.API.Service;
+import com.example.android.karta.Adapters.AdapterCommerce;
+import com.example.android.karta.Adapters.AdapterProduct;
+import com.example.android.karta.Models.Response.CommerceResponse;
 import com.example.android.karta.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    RecyclerView rv;
+    AdapterCommerce adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +42,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getCommercesList();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +63,47 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    public void getCommercesList(){
+
+        Retrofit retrofit = API.getRetrofit();
+
+        Service service = retrofit.create(Service.class);
+
+        Call<CommerceResponse> commerceCall = service.getCommerceData();
+
+        commerceCall.enqueue(new Callback<CommerceResponse>() {
+            @Override
+            public void onResponse(Call<CommerceResponse> call, Response<CommerceResponse> response) {
+
+                if(response.isSuccessful()){
+
+                    CommerceResponse commerces = response.body();
+
+                    Toast.makeText(MainActivity.this, ""+commerces.getDataCommerces(), Toast.LENGTH_LONG).show();
+
+                    rv = (RecyclerView) findViewById(R.id.recyclerCommerces);
+
+                    rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+                    adapter = new AdapterCommerce(commerces.getDataCommerces());
+
+                    rv.setAdapter(adapter);
+                }
+                else{
+
+                    Toast.makeText(MainActivity.this, "Eror", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommerceResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "OnFailure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
     @Override
     public void onBackPressed() {

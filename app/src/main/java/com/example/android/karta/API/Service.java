@@ -1,8 +1,8 @@
 package com.example.android.karta.API;
 
-import com.example.android.karta.Models.Product;
-
-import java.util.List;
+import com.example.android.karta.Models.Response.CommerceResponse;
+import com.example.android.karta.Models.Response.ProductResponse;
+import com.example.android.karta.Models.ServiceResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,7 +13,21 @@ import retrofit2.http.GET;
 
 public interface Service {
 
+    //ServiceResponse res = new ServiceResponse();
+
+    //ServiceResponse.ProductResponse resP = res.new ProductResponse();
+
+    //@GET("commerce/1/product")
+    //Call<List<Product>> getProductData();
+
+    //Obtain a list of products
     @GET("commerce/1/product")
-    Call<List<Product>> getProductData();
+    Call<ProductResponse> getProductData();
+
+    //Obtain a list of all commerce
+
+    @GET("free/commerces")
+    Call<CommerceResponse> getCommerceData();
+
 
 }

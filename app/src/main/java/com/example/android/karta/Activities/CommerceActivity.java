@@ -7,18 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.example.android.karta.API.API;
 import com.example.android.karta.API.Service;
 import com.example.android.karta.Adapters.AdapterProduct;
 import com.example.android.karta.Models.Product;
+import com.example.android.karta.Models.Response.ProductResponse;
+import com.example.android.karta.Models.ServiceResponse;
 import com.example.android.karta.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CommerceActivity extends AppCompatActivity {
 
@@ -73,16 +76,55 @@ public class CommerceActivity extends AppCompatActivity {
 
     private void getProductList() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://c12753cc.ngrok.io/api/")
+        /*Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://66b7c038.ngrok.io/api/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build();*/
+
+        Retrofit retrofit = API.getRetrofit();
 
         Service service = retrofit.create(Service.class);
 
-        Call<List<Product>> produtCall = service.getProductData();
+        //Call<List<Product>> produtCall = service.getProductData();
 
-        produtCall.enqueue(new Callback<List<Product>>() {
+        Call<ProductResponse> productCall = service.getProductData();
+
+        productCall.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+
+                if(response.isSuccessful()) {
+
+                    ProductResponse productRes = response.body();
+
+                    products = new ArrayList<>();
+                    products = productRes.getProducts();
+
+                //String listP = productRes.getProducts();
+
+                    Toast.makeText(CommerceActivity.this, ""+ productRes.getProducts(), Toast.LENGTH_SHORT).show();
+
+                    rv = (RecyclerView) findViewById(R.id.recyclerProduct);
+
+                    rv.setLayoutManager(new LinearLayoutManager(CommerceActivity.this));
+
+                    adapter = new AdapterProduct(productRes.getProducts());
+
+                    rv.setAdapter(adapter);
+
+                }
+                else {
+                    Toast.makeText(CommerceActivity.this, "Eror", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                Toast.makeText(CommerceActivity.this, "OnFailure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       /* produtCall.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if(response.isSuccessful()){
@@ -112,7 +154,7 @@ public class CommerceActivity extends AppCompatActivity {
             public void onFailure(Call<List<Product>> call, Throwable t) {
 
             }
-        });
+        });*/
 
 
 

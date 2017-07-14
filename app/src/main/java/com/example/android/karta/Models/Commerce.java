@@ -13,14 +13,14 @@ public class Commerce {
     String city;
     String colony;
     String postal_code;
-    String adress;
+    String address;
     String url_img;
 
     public Commerce(){
 
     }
 
-    public Commerce(int id_commerce, String name, int phone, String state, String city, String colony, String postal_code, String adress, String url_img) {
+    public Commerce(int id_commerce, String name, int phone, String state, String city, String colony, String postal_code, String address, String url_img) {
         this.id_commerce = id_commerce;
         this.name = name;
         this.phone = phone;
@@ -28,7 +28,7 @@ public class Commerce {
         this.city = city;
         this.colony = colony;
         this.postal_code = postal_code;
-        this.adress = adress;
+        this.address = address;
         this.url_img = url_img;
     }
 
@@ -88,12 +88,12 @@ public class Commerce {
         this.postal_code = postal_code;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public void setAdress(String adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 
     public String getUrl_img() {
