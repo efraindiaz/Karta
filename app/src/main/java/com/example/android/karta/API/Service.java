@@ -25,7 +25,6 @@ public interface Service {
     Call<ProductResponse> getProductData();
 
     //Obtain a list of all commerce
-
     @GET("free/commerces")
     Call<CommerceResponse> getCommerceData();
 
