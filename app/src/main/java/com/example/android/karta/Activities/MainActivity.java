@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity
 
                     CommerceResponse commerces = response.body();
 
-                    Toast.makeText(MainActivity.this, ""+commerces.getDataCommerces(), Toast.LENGTH_LONG).show();
-
                     rv = (RecyclerView) findViewById(R.id.recyclerCommerces);
 
                     rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));

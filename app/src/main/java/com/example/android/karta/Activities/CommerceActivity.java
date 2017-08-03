@@ -1,15 +1,24 @@
 package com.example.android.karta.Activities;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.android.karta.API.API;
 import com.example.android.karta.API.Service;
 import com.example.android.karta.Adapters.AdapterProduct;
+import com.example.android.karta.Adapters.Pager;
 import com.example.android.karta.Models.Product;
 import com.example.android.karta.Models.Response.ProductResponse;
 import com.example.android.karta.Models.ServiceResponse;
@@ -23,16 +32,33 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class CommerceActivity extends AppCompatActivity {
+public class CommerceActivity extends AppCompatActivity{
 
     RecyclerView rv;
     AdapterProduct adapter;
     List<Product> products;
+    public static int id_commerce;
+    String name, img;
+    ImageView logoCommerce;
+
+    //Tablayout
+    TabLayout tabCategories;
+    //ViewPager
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commerce);
+
+        /*Cast Elements*/
+        logoCommerce = (ImageView) findViewById(R.id.imgCommerce);
+
+        Bundle extras = getIntent().getExtras();
+        id_commerce = extras.getInt("id_commerce");
+        name = extras.getString("name");
+        img = extras.getString("img");
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -43,123 +69,71 @@ public class CommerceActivity extends AppCompatActivity {
           getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        getProductList();
-        /*rv = (RecyclerView) findViewById(R.id.recyclerProduct);
+        /*Initialize Tab with products categories*/
+        tabCategories = (TabLayout) findViewById(R.id.productsTabLayout);
 
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        /*Set categories*/
+        tabCategories.addTab(tabCategories.newTab().setText("Platillos"));
+        tabCategories.addTab(tabCategories.newTab().setText("Complementos"));
+        tabCategories.addTab(tabCategories.newTab().setText("Postres"));
+        tabCategories.addTab(tabCategories.newTab().setText("Bebidas"));
 
-        products = new ArrayList<>();*/
-
-        /*ArrayList<Product> test = new ArrayList<Product>();
-
-        for (int i = 0; i < 5; i ++ ) {
-
-            test.add(new Product(
-
-                    1,
-                    2,
-                    "nombre",
-                    "descripcion",
-                    "precio",
-                    2,
-                    "https://storage.googleapis.com/gweb-uniblog-publish-prod/static/blog/images/google-200x200.7714256da16f.png"
-            ));
-        }*/
-
-        //adapter = new AdapterProduct(test);
-
-        //rv.setAdapter(adapter);
+        tabCategories.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
+        //Initializae pager
+        viewPager = (ViewPager) findViewById(R.id.pager);
 
-    }
+        //Creating pager adapter
+        Pager adapter = new Pager(getSupportFragmentManager(), tabCategories.getTabCount());
 
-    private void getProductList() {
+        //Adding adapter to pager
+        viewPager.setAdapter(adapter);
 
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://66b7c038.ngrok.io/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabCategories));
 
-        Retrofit retrofit = API.getRetrofit();
-
-        Service service = retrofit.create(Service.class);
-
-        //Call<List<Product>> produtCall = service.getProductData();
-
-        Call<ProductResponse> productCall = service.getProductData();
-
-        productCall.enqueue(new Callback<ProductResponse>() {
+        //Adding onTabSelectedListener to swipe views
+        tabCategories.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
 
-                if(response.isSuccessful()) {
-
-                    ProductResponse productRes = response.body();
-
-                    products = new ArrayList<>();
-                    products = productRes.getProducts();
-
-                //String listP = productRes.getProducts();
-
-                    Toast.makeText(CommerceActivity.this, ""+ productRes.getProducts(), Toast.LENGTH_SHORT).show();
-
-                    rv = (RecyclerView) findViewById(R.id.recyclerProduct);
-
-                    rv.setLayoutManager(new LinearLayoutManager(CommerceActivity.this));
-
-                    adapter = new AdapterProduct(productRes.getProducts());
-
-                    rv.setAdapter(adapter);
-
-                }
-                else {
-                    Toast.makeText(CommerceActivity.this, "Eror", Toast.LENGTH_SHORT).show();
-                }
+                viewPager.setCurrentItem(position);
             }
 
             @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {
-                Toast.makeText(CommerceActivity.this, "OnFailure", Toast.LENGTH_SHORT).show();
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
-       /* produtCall.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if(response.isSuccessful()){
 
-                    List<Product> product = response.body();
-
-                    rv = (RecyclerView) findViewById(R.id.recyclerProduct);
-
-                    rv.setLayoutManager(new LinearLayoutManager(CommerceActivity.this));
-
-                    adapter = new AdapterProduct(product);
-
-                    rv.setAdapter(adapter);
-
-
-
-                    for(int i = 0; i < product.size(); i++){
-
-                        Product p = product.get(i);
-
-                        Toast.makeText(CommerceActivity.this, "Nombre: "+p.getName(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-
-            }
-        });*/
-
-
-
-
+        Glide.with(this).load(img).into(logoCommerce);
+        this.setTitle(name);
 
     }
 
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.info_commerce, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.more_info_commerce) {
+            // do something here
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

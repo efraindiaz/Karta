@@ -1,6 +1,7 @@
 package com.example.android.karta.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.android.karta.Activities.CommerceActivity;
 import com.example.android.karta.Models.Commerce;
 import com.example.android.karta.R;
 
@@ -46,6 +49,19 @@ public class AdapterCommerce extends RecyclerView.Adapter<AdapterCommerce.Commer
         Glide.with(context).load(commerce.getUrl_img()).into(holder.imgCommerce);
         holder.txtName.setText(commerce.getName());
 
+        holder.btnDetailCommerce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "Hola mundo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, CommerceActivity.class);
+                intent.putExtra("id_commerce", commerce.getId_commerce());
+                intent.putExtra("name", commerce.getName());
+                intent.putExtra("img", commerce.getUrl_img());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -65,7 +81,7 @@ public class AdapterCommerce extends RecyclerView.Adapter<AdapterCommerce.Commer
 
             txtName = (TextView) itemView.findViewById(R.id.txtCommerceName);
             imgCommerce = (ImageView) itemView.findViewById(R.id.imageViewCommerce);
-            btnDetailCommerce = (Button) itemView.findViewById(R.id.btnDetailProduct);
+            btnDetailCommerce = (Button) itemView.findViewById(R.id.buttonSeeDetailCommerce);
         }
 
     }
