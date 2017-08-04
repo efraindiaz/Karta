@@ -91,7 +91,7 @@
                     style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Olvidé mi constraseña" />
+                    android:text="Olvidé mi contraseña" />
 
                 <Button
                     android:id="@+id/buttonNewUser"

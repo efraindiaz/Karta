@@ -4,8 +4,10 @@ import com.example.android.karta.Models.Response.CommerceResponse;
 import com.example.android.karta.Models.Response.ProductResponse;
 import com.example.android.karta.Models.Response.UserResponse;
 import com.example.android.karta.Models.ServiceResponse;
+import com.example.android.karta.Models.User;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -24,6 +26,10 @@ public interface Service {
 
     //@GET("commerce/1/product")
     //Call<List<Product>> getProductData();
+
+    //New Account
+    @POST("client/new-profile")
+    Call<UserResponse> newAccount(@Body User newUser);
 
     //Auth
     @FormUrlEncoded

@@ -17,23 +17,21 @@
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity
-            android:name=".Activities.CommerceActivity"
-            ></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.CommerceActivity" />
         <activity
             android:name=".Activities.LoginActivity"
             android:label="Login">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.RegisterActivity"></activity>
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.HistoryActivity" />
+        <activity android:name=".Activities.AdressesActivity"></activity>
     </application>
 
 </manifest>

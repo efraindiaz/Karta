@@ -52,8 +52,6 @@ public class AdapterCommerce extends RecyclerView.Adapter<AdapterCommerce.Commer
         holder.btnDetailCommerce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(context, "Hola mundo", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, CommerceActivity.class);
                 intent.putExtra("id_commerce", commerce.getId_commerce());
                 intent.putExtra("name", commerce.getName());
