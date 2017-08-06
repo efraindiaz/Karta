@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.android.karta.R;
 
-public class AdressesActivity extends AppCompatActivity {
+public class LocationsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

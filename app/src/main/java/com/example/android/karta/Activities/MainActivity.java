@@ -1,5 +1,7 @@
 package com.example.android.karta.Activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +24,7 @@ import com.example.android.karta.API.API;
 import com.example.android.karta.API.Service;
 import com.example.android.karta.Adapters.AdapterCommerce;
 import com.example.android.karta.Adapters.AdapterProduct;
+import com.example.android.karta.Models.Location;
 import com.example.android.karta.Models.Response.CommerceResponse;
 import com.example.android.karta.R;
 
@@ -142,13 +145,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-            Intent intent = new Intent(MainActivity.this, CommerceActivity.class);
-            startActivity(intent);
+            // Handle the Locations Activity
+            activityHandler(1);
         } else if (id == R.id.nav_gallery) {
-
+            // Handle the Locations Activity
+            activityHandler(2);
         } else if (id == R.id.nav_slideshow) {
-
+            // Handle the Locations Activity
+            activityHandler(3);
         } else if (id == R.id.nav_share) {
 
         }
@@ -156,5 +160,33 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void activityHandler(int index){
+
+        Intent intent;
+        switch (index){
+
+            case 1:
+                intent = new Intent(MainActivity.this, LocationsActivity.class);
+                startActivity(intent);
+                break;
+
+            case 2:
+                intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+                break;
+
+            case 3:
+                intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+
+        }
+
+
     }
 }

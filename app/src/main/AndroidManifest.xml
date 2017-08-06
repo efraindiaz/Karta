@@ -29,9 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.RegisterActivity" />
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.HistoryActivity" />
-        <activity android:name=".Activities.AdressesActivity"></activity>
+        <activity android:label="Perfil" android:name=".Activities.ProfileActivity" />
+        <activity android:label="Historial de Pedidos" android:name=".Activities.HistoryActivity" />
+        <activity android:label="Mis Ubicaciones" android:name=".Activities.LocationsActivity"></activity>
     </application>
 
 </manifest>
