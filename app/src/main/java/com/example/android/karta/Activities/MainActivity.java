@@ -1,7 +1,5 @@
 package com.example.android.karta.Activities;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,14 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.karta.API.API;
 import com.example.android.karta.API.Service;
 import com.example.android.karta.Adapters.AdapterCommerce;
-import com.example.android.karta.Adapters.AdapterProduct;
-import com.example.android.karta.Models.Location;
 import com.example.android.karta.Models.Response.CommerceResponse;
 import com.example.android.karta.R;
 

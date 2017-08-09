@@ -1,11 +1,14 @@
 package com.example.android.karta.Adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,7 +45,41 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.Products
         final Product product = products.get(position);
         Glide.with(context).load(product.getImage()).into(holder.imgProduct);
         holder.txtName.setText(product.getName());
-        holder.txtPrice.setText(product.getPrice());
+        holder.txtPrice.setText("$" + product.getPrice() + "MXN");
+
+        /*Event for btn detail of product*/
+        //display a custom dialog
+
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(context);
+
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                dialog.setContentView(R.layout.detail_product_dialog);
+
+                ImageView img = (ImageView) dialog.findViewById(R.id.imgDetailProduct);
+
+                TextView txtDetailPrice = (TextView) dialog.findViewById(R.id.txtDetailProductPrice);
+
+                TextView txtDetailName = (TextView) dialog.findViewById(R.id.txtDetailProductName);
+
+                TextView txtDetailDesc = (TextView) dialog.findViewById(R.id.txtDetailProductDesc);
+
+                Glide.with(context).load(product.getImage()).into(img);
+
+                txtDetailPrice.setText("$" + product.getPrice() + "MXN");
+
+                txtDetailName.setText(product.getName());
+
+                txtDetailDesc.setText(product.getDescription());
+
+                dialog.show();
+
+            }
+        });
     }
 
     @Override

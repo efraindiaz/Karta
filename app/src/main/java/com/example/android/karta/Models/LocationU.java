@@ -4,24 +4,26 @@ package com.example.android.karta.Models;
  * Created by Root on 12/07/2017.
  */
 
-public class Location {
+public class LocationU {
 
     int id_consumer_address;
     int id_info_user_consumer;
-    String longitude;
-    String latitude;
+    String name;
+    Double latitude;
+    Double longitude;
     String references;
     String manual_address;
 
-    public Location(){
+    public LocationU(){
 
     }
 
-    public Location(int id_consumer_address, int id_info_user_consumer, String longitude, String latitude, String references, String manual_address) {
+    public LocationU(int id_consumer_address, int id_info_user_consumer, String name, Double latitude, Double longitude, String references, String manual_address) {
         this.id_consumer_address = id_consumer_address;
         this.id_info_user_consumer = id_info_user_consumer;
-        this.longitude = longitude;
+        this.name = name;
         this.latitude = latitude;
+        this.longitude = longitude;
         this.references = references;
         this.manual_address = manual_address;
     }
@@ -42,19 +44,27 @@ public class Location {
         this.id_info_user_consumer = id_info_user_consumer;
     }
 
-    public String getLongitude() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 

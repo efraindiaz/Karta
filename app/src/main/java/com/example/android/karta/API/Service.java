@@ -1,18 +1,23 @@
 package com.example.android.karta.API;
 
+import com.example.android.karta.Models.LocationU;
 import com.example.android.karta.Models.Response.CommerceResponse;
+import com.example.android.karta.Models.Response.GenericResponse;
+import com.example.android.karta.Models.Response.LocationResponse;
 import com.example.android.karta.Models.Response.OrderResponse;
 import com.example.android.karta.Models.Response.ProductResponse;
 import com.example.android.karta.Models.Response.UserResponse;
-import com.example.android.karta.Models.ServiceResponse;
 import com.example.android.karta.Models.User;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -51,6 +56,31 @@ public interface Service {
     Call<ProductResponse> getCatProductData(@Path("id_commerce") int id_commerce,
                                             @Path("id_cat") int id_cat);
 
+    /******************LOCATIONS*********************/
+
+    //Obtain a list of locations
+
+    @GET("client/{id_user}/location")
+    Call<LocationResponse> getLocations(@Path("id_user") int id_user);
+
+    //New LocationU
+
+    @POST("client/{id_user}/create-location")
+    Call<GenericResponse> newLocation(@Body LocationU newLocationU,
+                                      @Path("id_user") int id_user);
+
+    //Update LocationU
+    @PUT("client/{id_user}/update-location/{id_location}")
+    Call<GenericResponse> updateLocation(@Body LocationU updateLocationU,
+                                  @Path("id_user") int id_user,
+                                  @Path("id_location") int id_location);
+
+    //Delete LocationU
+    @DELETE("client/{id_user}/delete-location/{id_location}")
+    Call<GenericResponse> deleteLocation(@Path("id_user") int id_user,
+                                  @Path("id_location") int id_location);
+
+    /********************ORDERS***********************/
     //obtain the list of orders
 
     @GET("order/{id_user}/list-orders")
