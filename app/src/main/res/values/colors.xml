@@ -10,7 +10,9 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
     <color name="divider">#BDBDBD</color>
+    <color name="gray_light">#e2e1e1</color>
     <color name="transparent">#40ffffff</color>
     <color name="semi_transparent">#75000000</color>
 </resources>

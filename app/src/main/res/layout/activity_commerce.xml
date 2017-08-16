@@ -70,4 +70,54 @@
         android:layout_below="@id/productsTabLayout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+
+    <com.andremion.counterfab.CounterFab
+        android:id="@+id/fabCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_shopping_cart"
+        android:tint="@color/white"
+        app:fabSize="normal"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:elevation="4dp"/>
+
+    <!--RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/reLay"
+            android:layout_gravity="end|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/fab_margin"
+                android:elevation="4dp"
+                android:src="@drawable/ic_shopping_cart"
+                android:tint="@color/white"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabSize="normal"
+                app:rippleColor="@color/white" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/textOne"
+            android:layout_alignRight="@id/reLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:background="@drawable/round_btn"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+    </RelativeLayout-->
+
+
 </android.support.design.widget.CoordinatorLayout>

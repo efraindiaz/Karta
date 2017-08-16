@@ -1,5 +1,7 @@
 package com.example.android.karta.Activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,11 +24,15 @@ public class HistoryActivity extends AppCompatActivity {
 
     RecyclerView rv;
     AdapterOrder adapterOrder;
+    int id_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        id_user = preferences.getInt("id_user", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        getOrderList(3);
+        getOrderList(id_user);
 
     }
 

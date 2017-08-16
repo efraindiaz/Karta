@@ -22,53 +22,78 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageViewProduct"
+            <LinearLayout
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
-                cardview:srcCompat="@mipmap/ic_launcher" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageViewProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    cardview:srcCompat="@mipmap/ic_launcher" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:weightSum="1">
+                android:paddingLeft="10dp">
 
-                <TextView
-                    android:id="@+id/txtV_product_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.60"
-                    android:text="Comercio"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
-                    ></TextView>
+                    android:layout_marginTop="10dp"
+                    android:layout_weight=".1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtV_product_price"
+                    <TextView
+                        android:id="@+id/txtV_product_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="Producto"
+                        android:textStyle="bold"></TextView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.40"
-                    android:text="$$$"
-                    android:textColor="@color/colorAccent"
-                    tools:textSize="20dp"></TextView>
+                    android:layout_marginTop="10dp"
+                    android:layout_weight=".1"
+                    android:orientation="vertical">
 
-                <Button
-                android:id="@+id/btnDetailProduct"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorAccent"
-                android:elevation="0dp"
-                android:text="Ver"
-                android:textColor="@color/white" />
+                    <TextView
+                        android:id="@+id/txtV_product_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="$$$"
+                        android:textColor="@color/colorAccent"
+                        tools:textSize="20dp"></TextView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight=".1">
+
+                    <Button
+                        android:id="@+id/btnDetailProduct"
+                        style="@android:style/Widget.DeviceDefault.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorAccent"
+                        android:text="Ver"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
             </LinearLayout>
 

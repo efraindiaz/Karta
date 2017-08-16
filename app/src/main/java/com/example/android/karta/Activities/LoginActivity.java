@@ -1,6 +1,8 @@
 package com.example.android.karta.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import com.example.android.karta.API.API;
 import com.example.android.karta.API.Service;
 import com.example.android.karta.Models.Response.UserResponse;
+import com.example.android.karta.Models.User;
 import com.example.android.karta.R;
 
 import retrofit2.Call;
@@ -20,7 +23,7 @@ import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnNewUser, btnLogin;
+    Button btnNewUser, btnLogin, btnRestorePass;
     EditText etEmail, etPass;
 
     @Override
@@ -28,8 +31,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        Boolean loggedin = preferences.getBoolean("loggedin", false);
+
+        if(loggedin){
+            goToMain();
+        }
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnNewUser = (Button) findViewById(R.id.buttonNewUser);
+        btnRestorePass = (Button) findViewById(R.id.btnRespass);
 
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass = (EditText) findViewById(R.id.etPass);
@@ -53,6 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(register);
             }
         });
+
+        btnRestorePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resPass = new Intent(LoginActivity.this, RestorePassActivity.class);
+                startActivity(resPass);
+            }
+        });
     }
 
     private void login(String email, String pass) {
@@ -71,12 +90,11 @@ public class LoginActivity extends AppCompatActivity {
                     UserResponse userRes = response.body();
                     int code = userRes.getCode();
 
-                    if (code == 200) {
 
-                        Toast.makeText(LoginActivity.this, "Status: " + code, Toast.LENGTH_SHORT).show();
-                        Intent main = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(main);
-                        //Toast.makeText(LoginActivity.this, "Hola " + userRes.getDataUser().get(0).getName(), Toast.LENGTH_SHORT).show();
+                    if (code == 200) {
+                        User user = userRes.getDataUser();
+                        saveInPhone(user);
+                        goToMain();
                     }
 
                     else if(code == 401){
@@ -93,5 +111,24 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveInPhone(User user) {
+
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("loggedin", true);
+        editor.putInt("id_user", user.getId_info_user_consumer());
+        editor.putString("name", user.getName());
+        editor.putString("email", user.getEmail());
+        editor.commit();
+
+    }
+
+    private void goToMain(){
+        Intent main = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(main);
     }
 }

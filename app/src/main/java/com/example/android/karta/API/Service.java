@@ -1,9 +1,11 @@
 package com.example.android.karta.API;
 
+import com.example.android.karta.Models.Commerce;
 import com.example.android.karta.Models.LocationU;
 import com.example.android.karta.Models.Response.CommerceResponse;
 import com.example.android.karta.Models.Response.GenericResponse;
 import com.example.android.karta.Models.Response.LocationResponse;
+import com.example.android.karta.Models.Response.OrderDetailResponse;
 import com.example.android.karta.Models.Response.OrderResponse;
 import com.example.android.karta.Models.Response.ProductResponse;
 import com.example.android.karta.Models.Response.UserResponse;
@@ -47,6 +49,10 @@ public interface Service {
     @GET("free/commerces")
     Call<CommerceResponse> getCommerceData();
 
+    //Obtain the detail info of commerce
+    @GET("commerce/{id_commerce}")
+    Call<CommerceResponse> getCommerceDetail(@Path("id_commerce") int id_commerce);
+
     //Obtain a list of products
     @GET("commerce/{id_commerce}/product")
     Call<ProductResponse> getProductData(@Path("id_commerce") int id_commerce);
@@ -85,6 +91,11 @@ public interface Service {
 
     @GET("order/{id_user}/list-orders")
     Call<OrderResponse> getOrders(@Path("id_user") int id_user);
+
+    //Obtain the order detail
+
+    @GET("order/detail-order/{id_order}")
+    Call<OrderDetailResponse> getOrderDetail(@Path("id_order") int id_order);
 
 
 

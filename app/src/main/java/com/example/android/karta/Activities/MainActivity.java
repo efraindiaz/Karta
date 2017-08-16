@@ -1,6 +1,8 @@
 package com.example.android.karta.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.karta.API.API;
@@ -33,6 +36,12 @@ public class MainActivity extends AppCompatActivity
 
     RecyclerView rv;
     AdapterCommerce adapter;
+    TextView txtUserName;
+    TextView txtEmailUser;
+
+    int id_user;
+    String name;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +50,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getCommercesList();
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        id_user = preferences.getInt("id_user", 0);
+        name = preferences.getString("name", "Hola");
+        email = preferences.getString("email", "hola@mundo.com");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getCommercesList();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,6 +65,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        txtUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_name_user);
+        txtEmailUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_email_user);
+
+        txtUserName.setText(name);
+        txtEmailUser.setText(email);
     }
 
     public void getCommercesList(){
@@ -139,16 +150,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the Locations Activity
+        if(id == R.id.nav_map_comm){
             activityHandler(1);
-        } else if (id == R.id.nav_gallery) {
+        }
+        else if (id == R.id.nav_location) {
             // Handle the Locations Activity
             activityHandler(2);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_history) {
             // Handle the Locations Activity
             activityHandler(3);
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_profile) {
+            // Handle the Locations Activity
+            activityHandler(4);
+        } else if (id == R.id.nav_exit) {
 
         }
 
@@ -163,16 +177,21 @@ public class MainActivity extends AppCompatActivity
         switch (index){
 
             case 1:
-                intent = new Intent(MainActivity.this, LocationsActivity.class);
+                intent = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
                 break;
 
             case 2:
-                intent = new Intent(MainActivity.this, HistoryActivity.class);
+                intent = new Intent(MainActivity.this, LocationsActivity.class);
                 startActivity(intent);
                 break;
 
             case 3:
+                intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+                break;
+
+            case 4:
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 break;

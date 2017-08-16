@@ -52,6 +52,15 @@ public class Tab1Fragment extends Fragment {
 
         int id_commerce = CommerceActivity.id_commerce;
 
+        //Example to add product in the cart Array from CommerceActivity Thorught a public variable
+       /* Product product = new Product(1,"Perro","precio","img",2);
+        Product product2 = new Product(1,"Gato","precio","img",2);
+        CommerceActivity.cart.add(product);
+        CommerceActivity.cart.add(product2);
+
+        Toast.makeText(getContext(), ""+CommerceActivity.cart.get(0).getName(), Toast.LENGTH_SHORT).show();*/
+
+
         getProductList(id_commerce);
 
         return view;

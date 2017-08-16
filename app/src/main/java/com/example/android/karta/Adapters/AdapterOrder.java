@@ -1,6 +1,7 @@
 package com.example.android.karta.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.karta.Activities.OrderDetailActivity;
 import com.example.android.karta.Models.Order;
 import com.example.android.karta.R;
 
@@ -58,7 +60,13 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrdersViewHo
         holder.btnDetailOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Detalle Orden", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("id_commerce", order.getId_commerce());
+                intent.putExtra("id_order", order.getId_order_consumer());
+                intent.putExtra("total", order.getTotal());
+                intent.putExtra("date", order.getDate());
+                intent.putExtra("status", order.getStatus_order());
+                context.startActivity(intent);
             }
         });
 

@@ -1,7 +1,9 @@
 package com.example.android.karta.Activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -31,10 +33,15 @@ public class LocationsActivity extends AppCompatActivity {
 
     FloatingActionButton fabAddLocation;
 
+    int id_user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locations);
+
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        id_user = preferences.getInt("id_user", 0);
 
         /*Tool bar config*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -53,14 +60,14 @@ public class LocationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationsActivity.this, MapLocationActivity.class);
-                intent.putExtra("id_client", 1);
+                intent.putExtra("id_client", id_user);
                 intent.putExtra("option", true); //option for create a new LocationU
                 startActivity(intent);
             }
         });
 
 
-        getUserLocations(1);
+        getUserLocations(id_user);
 
 
     }

@@ -147,8 +147,6 @@ public class MapLocationActivity extends AppCompatActivity implements OnMapReady
                 String newRef = txtLocationReference.getText().toString();
                 String newAddress = txtLocationAddress.getText().toString();
 
-
-
                 //if option is to create a new location
                 if(option) {
                     LocationU locationU = new LocationU(0,id_client, newName, lat, lng, newRef, newAddress);
@@ -204,7 +202,7 @@ public class MapLocationActivity extends AppCompatActivity implements OnMapReady
 
             /*******************************************************/
 
-            //locationByGPS();
+            locationByGPS();
 
             /******************************************************/
 
@@ -220,10 +218,8 @@ public class MapLocationActivity extends AppCompatActivity implements OnMapReady
                     .build();                   // Creates a CameraPosition from the builder
             gMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-            gMap.setOnMarkerDragListener(this);
-
         }
-
+        gMap.setOnMarkerDragListener(this);
         gMap.setOnMapLongClickListener(this);
     }
 
@@ -307,19 +303,17 @@ public class MapLocationActivity extends AppCompatActivity implements OnMapReady
 
         if (marker == null) {
             marker = gMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).draggable(true));
-            //addressFromMarker = getAddress(new LatLng(location.getAltitude(),location.getAltitude()));
+            addressFromMarker = getAddress(new LatLng(location.getLatitude(),location.getLongitude()));
             //txtLocationAddress.setText(addressFromMarker);
             //Toast.makeText(this, ""+addressFromMarker, Toast.LENGTH_SHORT).show();
         } else {
             marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-            //addressFromMarker = getAddress(new LatLng(location.getAltitude(),location.getAltitude()));
+            addressFromMarker = getAddress(new LatLng(location.getLatitude(),location.getLongitude()));
             //txtLocationAddress.setText(addressFromMarker);
             //Toast.makeText(this, ""+addressFromMarker, Toast.LENGTH_SHORT).show();
         }
 
-        address = getAddress(new LatLng(location.getAltitude(),location.getAltitude()));
-        Toast.makeText(this, "CreateMarker = "+location.getLongitude(), Toast.LENGTH_SHORT).show();
-        txtLocationAddress.setText(address);
+        txtLocationAddress.setText(addressFromMarker);
         gMap.setOnMarkerDragListener(this);
 
     }
@@ -408,11 +402,13 @@ public class MapLocationActivity extends AppCompatActivity implements OnMapReady
         lat = marker.getPosition().latitude;
         lng = marker.getPosition().longitude;
 
+        //Toast.makeText(this, "Hola: "+lat, Toast.LENGTH_SHORT).show();
+
         txtLocationAddress.setText(address);
         //zoomToLocation();
-        Toast.makeText(MapLocationActivity.this, ""+marker.getPosition().latitude +
+        /*Toast.makeText(MapLocationActivity.this, ""+marker.getPosition().latitude +
                 "," +
-                marker.getPosition().longitude, Toast.LENGTH_SHORT).show();
+                marker.getPosition().longitude, Toast.LENGTH_SHORT).show();*/
 
     }
 
@@ -430,6 +426,8 @@ public class MapLocationActivity extends AppCompatActivity implements OnMapReady
             marker.setPosition(latLng);
         }
 
+        lat = latLng.latitude;
+        lng = latLng.longitude;
         address = getAddress(latLng);
         txtLocationAddress.setText(address);
     }

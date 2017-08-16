@@ -4,36 +4,25 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Root on 12/07/2017.
+ * Created by Root on 10/08/2017.
  */
 
-public class Product implements Parcelable{
+public class ProdTest implements Parcelable{
 
     int id_product;
     int id_commerce;
     String name;
     String description;
-    Double price;
+    double price;
     int id_product_type;
     String image;
     int quantity;
 
-    public Product(){
+    public ProdTest(){
 
     }
 
-
-    public Product(int id_product, int id_commerce, String name, String description, Double price, int id_product_type, String image) {
-        this.id_product = id_product;
-        this.id_commerce = id_commerce;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.id_product_type = id_product_type;
-        this.image = image;
-    }
-
-    public Product(int id_product, String name, Double price, String image, int quantity) {
+    public ProdTest(int id_product, String name, double price, String image, int quantity) {
         this.id_product = id_product;
         this.name = name;
         this.price = price;
@@ -41,25 +30,26 @@ public class Product implements Parcelable{
         this.quantity = quantity;
     }
 
-    protected Product(Parcel in) {
+    protected ProdTest(Parcel in) {
         id_product = in.readInt();
         id_commerce = in.readInt();
         name = in.readString();
         description = in.readString();
+        price = in.readDouble();
         id_product_type = in.readInt();
         image = in.readString();
         quantity = in.readInt();
     }
 
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
+    public static final Creator<ProdTest> CREATOR = new Creator<ProdTest>() {
         @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
+        public ProdTest createFromParcel(Parcel in) {
+            return new ProdTest(in);
         }
 
         @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
+        public ProdTest[] newArray(int size) {
+            return new ProdTest[size];
         }
     };
 
@@ -71,14 +61,6 @@ public class Product implements Parcelable{
         this.id_product = id_product;
     }
 
-    public int getId_commerce() {
-        return id_commerce;
-    }
-
-    public void setId_commerce(int id_commerce) {
-        this.id_commerce = id_commerce;
-    }
-
     public String getName() {
         return name;
     }
@@ -87,28 +69,12 @@ public class Product implements Parcelable{
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getId_product_type() {
-        return id_product_type;
-    }
-
-    public void setId_product_type(int id_product_type) {
-        this.id_product_type = id_product_type;
     }
 
     public String getImage() {
@@ -138,6 +104,7 @@ public class Product implements Parcelable{
         dest.writeInt(id_commerce);
         dest.writeString(name);
         dest.writeString(description);
+        dest.writeDouble(price);
         dest.writeInt(id_product_type);
         dest.writeString(image);
         dest.writeInt(quantity);
