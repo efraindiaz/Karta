@@ -35,6 +35,7 @@ public interface Service {
     //@GET("commerce/1/product")
     //Call<List<Product>> getProductData();
 
+    /******************ACCOUNT*********************/
     //New Account
     @POST("client/new-profile")
     Call<UserResponse> newAccount(@Body User newUser);
@@ -44,7 +45,10 @@ public interface Service {
     @POST("client/login")
     Call<UserResponse> getUserData(@Field("email") String email,
                                    @Field("password") String password);
+    //Change Password
+    //Restore password
 
+    /******************COMMERCE*********************/
     //Obtain a list of all commerce
     @GET("free/commerces")
     Call<CommerceResponse> getCommerceData();
@@ -96,6 +100,17 @@ public interface Service {
 
     @GET("order/detail-order/{id_order}")
     Call<OrderDetailResponse> getOrderDetail(@Path("id_order") int id_order);
+
+    //Genera una nueva orden
+    @FormUrlEncoded
+    @POST("order/{id_commerce}/create-order")
+    Call<GenericResponse> sendOrder(@Path("id_commerce") int id_path_commerce,
+                                    @Field("id_commerce") int id_commerce,
+                                    @Field("id_info_user_consumer") int id_user,
+                                    @Field("total") Double total,
+                                    @Field("total_items") int total_items,
+                                    @Field("id_consumer_address") int id_address,
+                                    @Field("items") String cart);
 
 
 

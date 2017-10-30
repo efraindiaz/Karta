@@ -69,9 +69,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng comm3 = new LatLng(21.132733089139244,-86.85189664363861);
 
-        mMap.addMarker(new MarkerOptions().position(comm1).title("Comercio 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red)));
-        mMap.addMarker(new MarkerOptions().position(comm2).title("Comercio 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red)));
-        mMap.addMarker(new MarkerOptions().position(comm3).title("Comercio 3").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red)));
+
+        //Crea marcadores para comercios
+        //
+        mMap.addMarker(new MarkerOptions().position(comm1).title("Comercio 1"));//.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red)));
+        mMap.addMarker(new MarkerOptions().position(comm2).title("Comercio 2"));//.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red)));
+        mMap.addMarker(new MarkerOptions().position(comm3).title("Comercio 3"));//.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red)));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(cancun));
 
 

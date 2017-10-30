@@ -199,6 +199,7 @@ public class CommerceActivity extends AppCompatActivity{
 
         Intent intent = new Intent(this, ShoppingCartActivity.class);
         //intent.putParcelableArrayListExtra("items", cart);
+        intent.putExtra("id_commerce", id_commerce);
         startActivity(intent);
 
 

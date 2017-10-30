@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity
 
                     CommerceResponse commerces = response.body();
 
+                    adapter = new AdapterCommerce(commerces.getDataCommerces());
+
                     rv = (RecyclerView) findViewById(R.id.recyclerCommerces);
 
                     rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-                    adapter = new AdapterCommerce(commerces.getDataCommerces());
 
                     rv.setAdapter(adapter);
                 }
